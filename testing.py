@@ -34,8 +34,10 @@ s=0 # if s=0 we use the first set of parameters, if s=1 we use the second set of
 #error_code_cam,joint_cam_handle=vrep.simxGetObjectHandle(clientID,'snake_joint_cam',vrep.simx_opmode_oneshot_wait)
 joints_h_handles=np.zeros([num_snakes,num_units,1])
 joints_v_handles=np.zeros([num_snakes,num_units,1])
-    
+distance_measurement_handles = np.zeros([num_snakes,1])
+
 for snake in range(num_snakes):
+    error_code_dist,distance_measurement_handles[snake] =  vrep.simxGetDistanceHandle(clientID,'snake'+str(snake)+'_goal',vrep.simx_opmode_blocking)
     for i in range(1,num_units+1):
         error_code_h, joints_h_handles[snake,i-1] = vrep.simxGetObjectHandle(clientID,'snake_joint_h'+str(i)+'#'+str(snake),vrep.simx_opmode_oneshot_wait)
         error_code_v, joints_v_handles[snake,i-1] = vrep.simxGetObjectHandle(clientID,'snake_joint_v'+str(i)+'#'+str(snake),vrep.simx_opmode_oneshot_wait)
@@ -51,18 +53,24 @@ s=0.0
 #    end
 #end
 t_const = 0.050000000745058
+distances = np.zeros([3,1])
 IPython.embed()
 for snake in range(num_snakes):
     t = 0.0
+    
     while True:
         t = t+t_const
         time.sleep(t_const)
         #print(t)
+
         for i in range(1,5):
             h_cmd = (A_H[0]*(1-s)+A_H[1]*s)*math.cos(t*(speed[0]*(1-s)+speed[1]*s)+i*(P_H[0]*(1-s)+P_H[1]*s))
             err_code_h = vrep.simxSetJointTargetPosition(clientID,joints_h_handles[snake,i-1],h_cmd,vrep.simx_opmode_oneshot)
             v_cmd =(A_V[0]*(1-s)+A_V[1]*s)*math.sin(t*(speed[0]*(1-s)+speed[1]*s)+i*(P_V[0]*(1-s)+P_V[1]*s))
             err_code_v = vrep.simxSetJointTargetPosition(clientID,joints_v_handles[snake,i-1],v_cmd,vrep.simx_opmode_oneshot)
+
+        print("Distances:")
+        
         if t>=5.0:
             break
         print("---")    
