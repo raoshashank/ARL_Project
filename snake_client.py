@@ -21,10 +21,6 @@ functions required:
     -run sim(f,snake,fitness): given a function and a snake, run the sim and return the fitness function on a separate thread
 '''
 
-
-
-
-
 sim.simxFinish(-1) # just in case, close all opened connections
 def init_client(port_number=19999,num_snakes = 3):
     num_units = 4
@@ -58,23 +54,6 @@ def init_client(port_number=19999,num_snakes = 3):
     return joints_v_handles,joints_h_handles,distance_measurement_handles
 
 init_client()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # t=0
 # speed=[5,5]
