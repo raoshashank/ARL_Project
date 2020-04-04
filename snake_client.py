@@ -4,6 +4,15 @@ import sys
 import numpy as np
 import math
 import time
+import IPython
+
+'''
+Tasks:
+    -spawn snakes at 4 square distances from each other and save model (delete the child script accompanying the snake before saving)
+    - write script for spawning each snake and measuring the distance moved by the snake after T timesteps
+    -delete snake and reload snake through code.
+
+'''
 
 '''
 functions required:
@@ -11,6 +20,10 @@ functions required:
     -reset_snake(handle) : reset a snake given its handle
     -run sim(f,snake,fitness): given a function and a snake, run the sim and return the fitness function on a separate thread
 '''
+
+
+
+
 
 sim.simxFinish(-1) # just in case, close all opened connections
 def init_client(port_number=19999,num_snakes = 3):
@@ -34,13 +47,14 @@ def init_client(port_number=19999,num_snakes = 3):
             if error_code_h!=0 or error_code_v!=0 or error_code_cam!=0:
                 print("Problem!")
 
-    input()
-    err_code = sim.simxSetObjectPosition(clientID,snake_handles[1],-1,[0.0,0.0,0.0],sim.simx_opmode_oneshot)
-    input()
-    sim.simxCloseScene(clientID,sim.simx_opmode_blocking)
-    input()
-    ret_code = sim.simxLoadScene(clientID,'/home/raoshashank/CSim_python/snake_scene.ttt',True,sim.simx_opmode_blocking)
-    print(ret_code)
+    #input()
+    #err_code = sim.simxSetObjectPosition(clientID,snake_handles[1],-1,[0.0,0.0,0.0],sim.simx_opmode_oneshot)
+    #input()
+    #sim.simxCloseScene(clientID,sim.simx_opmode_blocking)
+    #input()
+    #ret_code = sim.simxLoadScene(clientID,'/home/raoshashank/CSim_python/snake_scene.ttt',True,sim.simx_opmode_blocking)
+    #print(ret_code)
+    IPython.embed()
     return joints_v_handles,joints_h_handles,distance_measurement_handles
 
 init_client()
