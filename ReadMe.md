@@ -1,4 +1,5 @@
 # Using Genetic Algorithms to mimic snake locomotion from Video on robots
+## Course Project: CSE 598(Advances in Robot Learning): Shashank Rao Marpally, Nithish Moudhgalya, Sagar Seth
 Summary:
 1. Capture snake locomotion from real videos and extract locomotion function y=f(x) using image processing and spline fitting. 
 2. Using the obtained function and other parameters like smoothness of motion and total distance moved to define a fitness function for the   genetic algorithm.
